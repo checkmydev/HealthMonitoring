@@ -30,6 +30,10 @@ export function useWellnessData() {
     setEntries((prev) => prev.filter((e) => e.id !== id))
   }, [])
 
+  const updateEntry = useCallback((id, data) => {
+    setEntries((prev) => prev.map((e) => (e.id === id ? { ...e, ...data } : e)))
+  }, [])
+
   const getChartData = useCallback(
     (days = 14) => {
       const cutoff = new Date()
@@ -72,5 +76,5 @@ export function useWellnessData() {
     }
   }, [entries])
 
-  return { entries, addEntry, deleteEntry, getChartData, getAverages }
+  return { entries, addEntry, deleteEntry, updateEntry, getChartData, getAverages }
 }

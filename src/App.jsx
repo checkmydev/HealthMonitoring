@@ -12,7 +12,7 @@ const TABS = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard')
-  const { entries, addEntry, deleteEntry, getChartData, getAverages } = useWellnessData()
+  const { entries, addEntry, deleteEntry, updateEntry, getChartData, getAverages } = useWellnessData()
 
   const handleSave = (data) => {
     addEntry(data)
@@ -78,7 +78,7 @@ export default function App() {
           <EntryForm onSave={handleSave} />
         )}
         {activeTab === 'history' && (
-          <History entries={entries} onDelete={deleteEntry} />
+          <History entries={entries} onDelete={deleteEntry} onUpdate={updateEntry} />
         )}
       </main>
     </div>
