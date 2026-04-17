@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { EditModal } from './EditModal'
+import { ExportButton } from './ExportButton'
 
 function Badge({ value, max = 10, invertColor = false }) {
   const pct = (value / max) * 100
@@ -33,7 +34,10 @@ export function History({ entries, onDelete, onUpdate }) {
       )}
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-        <h2 className="text-lg font-bold text-gray-800 mb-4">Historique</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-bold text-gray-800">Historique</h2>
+          <ExportButton entries={entries} />
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
             <thead>
