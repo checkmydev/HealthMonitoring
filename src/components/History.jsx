@@ -48,8 +48,8 @@ export function History({ entries, onDelete, onUpdate }) {
                 <th className="pb-2 pr-3">Fatigue</th>
                 <th className="pb-2 pr-3">Stress</th>
                 <th className="pb-2 pr-3">Humeur</th>
-                <th className="pb-2 pr-3">Énergie</th>
                 <th className="pb-2 pr-3">Activité</th>
+                <th className="pb-2 pr-3">Alcool</th>
                 <th className="pb-2"></th>
               </tr>
             </thead>
@@ -67,8 +67,8 @@ export function History({ entries, onDelete, onUpdate }) {
                   <td className="py-2 pr-3"><Badge value={e.fatigue} invertColor /></td>
                   <td className="py-2 pr-3"><Badge value={e.stress} invertColor /></td>
                   <td className="py-2 pr-3"><Badge value={e.mood} /></td>
-                  <td className="py-2 pr-3"><Badge value={e.energy} /></td>
                   <td className="py-2 pr-3 text-gray-600">{e.activity} min</td>
+                  <td className="py-2 pr-3 text-gray-600">{e.alcohol ?? 0}</td>
                   <td className="py-2">
                     <div className="flex gap-2">
                       <button

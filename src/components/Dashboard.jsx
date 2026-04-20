@@ -17,7 +17,6 @@ const LINES = [
   { key: 'fatigue', name: 'Fatigue', color: '#f59e0b' },
   { key: 'stress', name: 'Stress', color: '#f43f5e' },
   { key: 'humeur', name: 'Humeur', color: '#10b981' },
-  { key: 'energie', name: 'Énergie', color: '#8b5cf6' },
 ]
 
 export function Dashboard({ chartData, averages, totalEntries }) {
@@ -33,7 +32,6 @@ export function Dashboard({ chartData, averages, totalEntries }) {
 
   return (
     <div className="space-y-6">
-      {/* Stat cards */}
       {averages && (
         <div>
           <h2 className="text-lg font-bold text-gray-800 mb-3">
@@ -45,13 +43,12 @@ export function Dashboard({ chartData, averages, totalEntries }) {
             <StatCard label="Fatigue" value={averages.fatigue} unit="/10" color="amber" icon="🔋" />
             <StatCard label="Stress" value={averages.stress} unit="/10" color="rose" icon="😤" />
             <StatCard label="Humeur" value={averages.mood} unit="/10" color="green" icon="😊" />
-            <StatCard label="Énergie" value={averages.energy} unit="/10" color="teal" icon="⚡" />
-            <StatCard label="Activité" value={averages.activity} unit="min" color="indigo" icon="🏃" />
+            <StatCard label="Activité" value={averages.activity} unit="min" color="teal" icon="🏃" />
+            <StatCard label="Alcool" value={averages.alcohol} unit="verres" color="amber" icon="🍷" />
           </div>
         </div>
       )}
 
-      {/* Bien-être general line chart */}
       {chartData.length >= 2 && (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
           <h2 className="text-base font-bold text-gray-800 mb-4">Évolution sur 14 jours (scores /10)</h2>
@@ -60,43 +57,30 @@ export function Dashboard({ chartData, averages, totalEntries }) {
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="date" tick={{ fontSize: 11 }} />
               <YAxis domain={[0, 10]} tick={{ fontSize: 11 }} />
-              <Tooltip
-                contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
-              />
+              <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} />
               <Legend wrapperStyle={{ fontSize: 12 }} />
               {LINES.map((l) => (
-                <Line
-                  key={l.key}
-                  type="monotone"
-                  dataKey={l.key}
-                  name={l.name}
-                  stroke={l.color}
-                  strokeWidth={2}
-                  dot={{ r: 3 }}
-                  activeDot={{ r: 5 }}
-                />
+                <Line key={l.key} type="monotone" dataKey={l.key} name={l.name} stroke={l.color} strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
               ))}
             </LineChart>
           </ResponsiveContainer>
         </div>
       )}
 
-      {/* Sleep + activity bar chart */}
       {chartData.length >= 2 && (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-          <h2 className="text-base font-bold text-gray-800 mb-4">Sommeil & Activité physique</h2>
+          <h2 className="text-base font-bold text-gray-800 mb-4">Sommeil, Activité & Alcool</h2>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="date" tick={{ fontSize: 11 }} />
               <YAxis yAxisId="left" tick={{ fontSize: 11 }} />
               <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} />
-              <Tooltip
-                contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
-              />
+              <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} />
               <Legend wrapperStyle={{ fontSize: 12 }} />
               <Bar yAxisId="left" dataKey="sommeil" name="Sommeil (h)" fill="#6366f1" radius={[4, 4, 0, 0]} />
               <Bar yAxisId="right" dataKey="activite" name="Activité (min)" fill="#14b8a6" radius={[4, 4, 0, 0]} />
+              <Bar yAxisId="left" dataKey="alcool" name="Alcool (verres)" fill="#f97316" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -17,12 +17,15 @@ export function useWellnessData() {
   }, [entries])
 
   const addEntry = useCallback((entry) => {
+    const dateISO = entry.date
+      ? new Date(entry.date + 'T12:00:00').toISOString()
+      : new Date().toISOString()
     const newEntry = {
       id: Date.now().toString(),
-      date: new Date().toISOString(),
+      date: dateISO,
       ...entry,
     }
-    setEntries((prev) => [newEntry, ...prev])
+    setEntries((prev) => [newEntry, ...prev].sort((a, b) => new Date(b.date) - new Date(a.date)))
     return newEntry
   }, [])
 
@@ -54,6 +57,7 @@ export function useWellnessData() {
           humeur: e.mood,
           energie: e.energy,
           activite: e.activity,
+          alcool: e.alcohol ?? 0,
         }))
     },
     [entries]
@@ -71,8 +75,8 @@ export function useWellnessData() {
       fatigue: avg('fatigue'),
       stress: avg('stress'),
       mood: avg('mood'),
-      energy: avg('energy'),
       activity: avg('activity'),
+      alcohol: avg('alcohol'),
     }
   }, [entries])
 

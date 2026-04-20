@@ -1,6 +1,6 @@
 export function ExportButton({ entries }) {
   const exportCSV = () => {
-    const headers = ['Date','Heure','Sommeil (h)','Qualité sommeil','Fatigue','Énergie','Stress','Humeur','Activité (min)','Notes']
+    const headers = ['Date','Heure','Sommeil (h)','Qualité sommeil','Fatigue','Stress','Humeur','Activité (min)','Alcool (verres)','Notes']
     const rows = entries.map((e) => {
       const d = new Date(e.date)
       return [
@@ -9,10 +9,10 @@ export function ExportButton({ entries }) {
         e.sleepDuration,
         e.sleepQuality,
         e.fatigue,
-        e.energy,
         e.stress,
         e.mood,
         e.activity,
+        e.alcohol ?? 0,
         `"${(e.notes ?? '').replace(/"/g, '""')}"`,
       ].join(',')
     })
@@ -39,18 +39,10 @@ export function ExportButton({ entries }) {
 
   return (
     <div className="flex gap-2">
-      <button
-        onClick={exportCSV}
-        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-green-50 hover:bg-green-100 text-green-700 text-sm font-semibold transition-colors"
-        title="Exporter en CSV (Excel)"
-      >
+      <button onClick={exportCSV} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-green-50 hover:bg-green-100 text-green-700 text-sm font-semibold transition-colors" title="Exporter en CSV (Excel)">
         <span>↓</span> CSV
       </button>
-      <button
-        onClick={exportJSON}
-        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-semibold transition-colors"
-        title="Exporter en JSON"
-      >
+      <button onClick={exportJSON} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-semibold transition-colors" title="Exporter en JSON">
         <span>↓</span> JSON
       </button>
     </div>
