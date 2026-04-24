@@ -100,8 +100,8 @@ export function EditModal({ entry, onSave, onClose }) {
                   {form.alcohol === 0 ? '0 (aucun)' : `${form.alcohol} verre${form.alcohol > 1 ? 's' : ''}`}
                 </span>
               </label>
-              <input type="range" name="alcohol" min={0} max={10} step={1} value={form.alcohol} onChange={handleChange} className="w-full cursor-pointer" />
-              <div className="flex justify-between text-xs text-gray-400 mt-0.5"><span>0</span><span>10+</span></div>
+              <input type="range" name="alcohol" min={0} max={15} step={1} value={form.alcohol} onChange={handleChange} className="w-full cursor-pointer" />
+              <div className="flex justify-between text-xs text-gray-400 mt-0.5"><span>0</span><span>15+</span></div>
             </div>
           </fieldset>
 
