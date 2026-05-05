@@ -13,10 +13,11 @@ import {
 import { StatCard } from './StatCard'
 
 const LINES = [
-  { key: 'qualiteSommeil', name: 'Qualité sommeil', color: '#6366f1' },
-  { key: 'fatigue', name: 'Fatigue', color: '#f59e0b' },
-  { key: 'stress', name: 'Stress', color: '#f43f5e' },
-  { key: 'humeur', name: 'Humeur', color: '#10b981' },
+  { key: 'qualiteSommeil', name: 'Qualité sommeil', color: '#6366f1', yAxis: 'left' },
+  { key: 'fatigue', name: 'Fatigue', color: '#f59e0b', yAxis: 'left' },
+  { key: 'stress', name: 'Stress', color: '#f43f5e', yAxis: 'left' },
+  { key: 'humeur', name: 'Humeur', color: '#10b981', yAxis: 'left' },
+  { key: 'alcool', name: 'Alcool (verres)', color: '#f97316', yAxis: 'right' },
 ]
 
 export function Dashboard({ chartData, averages, totalEntries }) {
@@ -56,11 +57,12 @@ export function Dashboard({ chartData, averages, totalEntries }) {
             <LineChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="date" tick={{ fontSize: 11 }} />
-              <YAxis domain={[0, 10]} tick={{ fontSize: 11 }} />
+              <YAxis yAxisId="left" domain={[0, 10]} tick={{ fontSize: 11 }} />
+              <YAxis yAxisId="right" orientation="right" domain={[0, 15]} tick={{ fontSize: 11 }} tickFormatter={(v) => `${v}v`} />
               <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} />
               <Legend wrapperStyle={{ fontSize: 12 }} />
               {LINES.map((l) => (
-                <Line key={l.key} type="monotone" dataKey={l.key} name={l.name} stroke={l.color} strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                <Line key={l.key} yAxisId={l.yAxis} type="monotone" dataKey={l.key} name={l.name} stroke={l.color} strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
               ))}
             </LineChart>
           </ResponsiveContainer>
